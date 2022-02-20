@@ -36,15 +36,24 @@ namespace AirportDatabaseMaintenance
             };
             
             dbc.Airports.Add(airport);
-            dbc.SaveChanges();
+            try
+            {
+                dbc.SaveChanges();
+            }
+            catch (Exception exception)
+            {
+
+                MessageBox.Show(exception.InnerException.Message);
+            }
+            
             airportList.Items.Refresh();
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            //dbc.Airports.Load();
-            //CollectionViewSource airportSource = (CollectionViewSource)(this.FindResource("airportViewSource"));
-            //airportSource.Source = dbc.Airports.Local;
+            dbc.Airports.Load();
+            CollectionViewSource airportSource = (CollectionViewSource)(this.FindResource("airportViewSource"));
+            airportSource.Source = dbc.Airports.Local;
         }
 
         private void airportList_SelectionChanged(object sender, SelectionChangedEventArgs e)
