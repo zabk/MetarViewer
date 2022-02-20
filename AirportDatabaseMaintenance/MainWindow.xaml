@@ -1,0 +1,36 @@
+﻿<Window x:Class="AirportDatabaseMaintenance.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AirportDatabaseMaintenance"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="350" Loaded="Window_Loaded">
+    <Window.Resources>
+        <CollectionViewSource x:Key="airportViewSource"/>
+    </Window.Resources>
+    <Grid Margin="15" DataContext="{StaticResource airportViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <DataGrid x:Name="airportList" Grid.Column="0" ItemsSource="{Binding}" AutoGenerateColumns="False" SelectionChanged="airportList_SelectionChanged"> 
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="AirportIataCode" Binding="{Binding AirportIATACode}" Header="IATA code"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="AirportICAOCode" Binding="{Binding AirportICAOCode}" Header="ICAO code"></DataGridTextColumn>
+                <DataGridTextColumn x:Name="AirportMinima" Binding="{Binding Minima}" Header="Minima"></DataGridTextColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <StackPanel Orientation="Vertical" Margin="15" Grid.Column="1">
+            <Label>IATA code:</Label>
+            <TextBox x:Name="airportIATATextBox"></TextBox>
+            <Label>ICAO code:</Label>
+            <TextBox x:Name="airportICAOTextBox"></TextBox>
+            <Label>Minima:</Label>
+            <TextBox x:Name="airportMinimaTextBox"></TextBox>
+            <Label/>
+            <Button Name ="submit" Click="Button_Click" >Submit data</Button>
+        </StackPanel>
+
+    </Grid>
+</Window>
