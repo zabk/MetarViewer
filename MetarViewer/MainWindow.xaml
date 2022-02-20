@@ -1,0 +1,61 @@
+﻿<Window x:Class="MetarViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MetarViewer"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        SizeChanged="Window_SizeChanged">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="261*"/>
+            <ColumnDefinition Width="469*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25" />
+            <RowDefinition Height="10" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="25" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.Column="0">
+            <Button Name="downloadTest" Click="downloadTest_Click">Button</Button>
+        </StackPanel>
+        <DataGrid x:Name="dataGridTest" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="Normal">
+                            <Setter Property="Background" Value="White"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="MarginalWeather">
+                            <Setter Property="Background" Value="Yellow"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="BelowMinima">
+                            <Setter Property="Background" Value="Orange"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="NoMetar">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </DataTrigger>
+
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="Error">
+                            <Setter Property="Background" Value="LightBlue"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="{x:Type DataGridColumnHeader}">
+                    <Setter Property="FontWeight" Value="Bold"/>
+
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+        </DataGrid>
+
+    </Grid>
+</Window>
