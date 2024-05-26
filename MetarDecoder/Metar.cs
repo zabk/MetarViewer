@@ -9,7 +9,8 @@ namespace MetarDecoder
         public string RawMETAR { get; set; }
         public int Visibility { get; set; }
         public string RVR { get; set; }
-
+        public bool Snowing { get; set; }
+        public string ObservationTime { get; set; }
     }
 
 }

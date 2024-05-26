@@ -23,7 +23,7 @@ namespace MetarViewer
             Decoder decoder = new Decoder();
             decoder.ProcessMetars();
             dataGridTest.ItemsSource = decoder.MetarResults;
-            dataGridTest.Columns[5].Visibility = Visibility.Collapsed;
+            //dataGridTest.Columns[6].Visibility = Visibility.Collapsed;
 
             
         }

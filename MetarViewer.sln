@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.32126.315
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34616.47
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MetarViewer", "MetarViewer\MetarViewer.csproj", "{062DE5BB-D0A6-41C0-B6F3-E9B13463F751}"
 EndProject
@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DownloadMetar", "DownloadMe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GetAirportList", "GetAirportList\GetAirportList.csproj", "{A2F2B360-8CD0-456E-9F11-6A22897198B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirportDatabaseMaintenance", "AirportDatabaseMaintenance\AirportDatabaseMaintenance.csproj", "{23F10BE9-0C4C-4514-B354-7C7C76ED9A60}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirportDatabaseMaintenance", "AirportDatabaseMaintenance\AirportDatabaseMaintenance.csproj", "{23F10BE9-0C4C-4514-B354-7C7C76ED9A60}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

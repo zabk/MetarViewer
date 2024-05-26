@@ -40,9 +40,13 @@
                         </DataTrigger>
 
                         <DataTrigger Binding="{Binding MetarStatus}" Value="NoMetar">
-                            <Setter Property="Background" Value="LightGray"/>
+                            <Setter Property="Background" Value="Red"/>
                         </DataTrigger>
 
+                        <DataTrigger Binding="{Binding MetarStatus}" Value="Snowy">
+                            <Setter Property="Background" Value="LightGray"/>
+                        </DataTrigger>
+                        
                         <DataTrigger Binding="{Binding MetarStatus}" Value="Error">
                             <Setter Property="Background" Value="LightBlue"/>
                         </DataTrigger>

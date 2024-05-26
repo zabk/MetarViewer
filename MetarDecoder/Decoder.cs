@@ -1,11 +1,10 @@
-﻿using System;
+﻿using DownloadMetar;
+using GetAirportList;
+using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
-using DownloadMetar;
-using GetAirportList;
 
 namespace MetarDecoder
 {
@@ -56,10 +55,12 @@ namespace MetarDecoder
                                  (metar, airport) => new MetarResult
                                  {
                                      AirportIATACode = airport.AirportIATACode,
+                                     IssueTime = metar.ObservationTime,
                                      Minima = airport.Minima,
                                      Visibility = metar.Visibility,
                                      RVR = metar.RVR,
-                                     RawMETAR = metar.RawMETAR
+                                     RawMETAR = metar.RawMETAR,
+                                     Snowing = metar.Snowing
                                  }
                 ).ToList();
         }
@@ -68,15 +69,20 @@ namespace MetarDecoder
         {
             foreach (var metar in MetarResults)
             {
+                if (metar.Snowing)
+                {
+                    metar.MetarStatus = MetarIssue.Snowy;
+                }
+                
                 if (metar.Visibility < metar.Minima)
                 {
                     metar.MetarStatus = MetarIssue.BelowMinima;
                 }
-                else if (metar.Visibility < metar.Minima*1.25)
+                else if (metar.Visibility < metar.Minima*1.25 )
                 {
                     metar.MetarStatus = MetarIssue.MarginalWeather;
                 }
-                else metar.MetarStatus = MetarIssue.Normal;
+                
                 if (metar.Visibility == 0)
                 {
                     metar.MetarStatus = MetarIssue.Error;
@@ -116,20 +122,21 @@ namespace MetarDecoder
         private Metar DecodeRawMetar(string rawMetar)
         {
             string airportPattern = @"^\w{4}";
-            //string observationTimePattern = @"\d{6}Z";
+            string observationTimePattern = @"\d{6}Z";
             //string cloudBasePattern = @"FEW\d{3}(TCU){0,1}|SCT\d{3}(TCU){0,1}|BKN\d{3}(TCU){0,1}|OVC\d{3}(TCU){0,1}|CAVOK";
             //string windPattern = @"\d{5}KT|\d{5}G\d{2}KT|VRB\d{2}KT|d{}3Vd{3}|\d{5}MPS";
             string visibilityPattern = @"\b\d{4}\b|\b\d{4}?[SWEN]?[SWEN]\b|CAVOK|\b\d?/?\d?SM\b|\b\d \d?/?\d?SM\b|\b\d{4}?NDV\b|\bM1/4SM\b|\b////\b";
             string rvrPattern = @"R\d{2}?[LRC]/\d{4}";
             //string temperaturePattern = @"\b\d{2}/\d{2}\b";
-
+            string snowPattern = @" [+|-]?\w{0,4}SN";
 
             var result = new Metar();
 
             result.RawMETAR = rawMetar;
             result.AirportICAOCode = Regex.Match(rawMetar, airportPattern).ToString();
             result.Visibility = VisibilityConverter(Regex.Match(rawMetar, visibilityPattern).ToString());
-            
+            result.ObservationTime = Regex.Match(rawMetar,observationTimePattern).ToString();
+            result.Snowing = Regex.IsMatch(rawMetar, snowPattern);
             var RVRs= Regex.Matches(rawMetar, rvrPattern);
             foreach (var RVR in RVRs)
             {
